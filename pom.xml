@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.wso2.sample</groupId>
+    <artifactId>org.wso2.sample.authenticator</artifactId>
+    <version>1.0.0</version>
+    <packaging>bundle</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.wso2.carbon</groupId>
+            <artifactId>org.wso2.carbon.logging</artifactId>
+            <version>4.4.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.synapse</groupId>
+            <artifactId>synapse-core</artifactId>
+            <version>2.1.7-wso2v3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon.identity</groupId>
+            <artifactId>org.wso2.carbon.identity.core</artifactId>
+            <version>5.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon.apimgt</groupId>
+            <artifactId>org.wso2.carbon.apimgt.gateway</artifactId>
+            <version>6.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.1.1</version>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>wso2-nexus</id>
+            <name>WSO2 internal Repository</name>
+            <url>http://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
+        </repository>
+        <repository>
+            <id>wso2.releases</id>
+            <name>WSO2 internal Repository</name>
+            <url>http://maven.wso2.org/nexus/content/repositories/releases/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
+        </repository>
+    </repositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-scr-plugin</artifactId>
+                <version>1.7.2</version>
+                <executions>
+                    <execution>
+                        <id>generate-scr-scrdescriptor</id>
+                        <goals>
+                            <goal>scr</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>1.4.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Bundle-Name>${project.artifactId}</Bundle-Name>
+                        <Export-Package>org.wso2.sample.auth</Export-Package>
+                        <Import-Package>
+                            org.apache.axis2; version="1.6.1.wso2v19",
+                            org.apache.axis2.addressing; version="1.6.1.wso2v19",
+                            org.apache.axis2.client; version="1.6.1.wso2v19",
+                            org.apache.axis2.context; version="1.6.1.wso2v19",
+                            org.apache.axis2.engine; version="1.6.1.wso2v19",
+                            org.apache.axis2.transport.http; version="1.6.1.wso2v19",
+                            org.apache.log4j; version="1.2.17",
+                            org.apache.synapse; version="0.0.0",
+                            org.apache.synapse.core.axis2; version="0.0.0",
+                            org.apache.synapse.rest; version="0.0.0",
+                            org.apache.synapse.transport.passthru.util; version="0.0.0",
+                            org.apache.xml.security.utils; version="1.4.2.patched",
+                            org.wso2.carbon.apimgt.api; version="6.0.4",
+                            org.wso2.carbon.apimgt.gateway; version="6.0.4",
+                            org.wso2.carbon.apimgt.gateway.handlers.security; version="6.0.4",
+                            org.wso2.carbon.apimgt.impl; version="6.0.4",
+                            org.wso2.carbon.apimgt.impl.dto; version="6.0.4",
+                            org.wso2.carbon.apimgt.impl.utils; version="6.0.4",
+                            org.wso2.carbon.context; version="4.4.7",
+                            org.apache.http; version="4.1.1",
+                            org.apache.http.client; version="4.1.1",
+                            org.apache.http.client.methods; version="4.1.1",
+                            org.apache.http.conn; version="4.1.1",
+                            org.apache.http.entity; version="4.1.1",
+                            org.apache.http.impl.client; version="4.1.1",
+                            com.google.gson,javax.cache,org.wso2.carbon.identity.oauth2,
+                            org.wso2.carbon.identity.oauth2.dto,org.apache.ws.security.util,
+                            org.apache.commons.logging,
+                            org.osgi.service.component,
+                            *;resolution:=optional
+                        </Import-Package>
+                    </instructions>
+                    <unpackBundle>true</unpackBundle>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+
+
+</project>
