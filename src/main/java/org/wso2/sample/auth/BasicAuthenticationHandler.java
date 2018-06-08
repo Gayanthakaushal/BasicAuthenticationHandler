@@ -198,13 +198,19 @@ public class BasicAuthenticationHandler extends AbstractHandler {
             getBasicAuthJWTCache().put(hashedCredentials, jwtToken);
         }
 
-        String jwtHeader = getAPIManagerConfiguration().getFirstProperty(APIConstants.JWT_HEADER);
-        ((TreeMap) axis2MessageContext
-                .getProperty(org.apache.axis2.context.MessageContext.TRANSPORT_HEADERS))
-                .put(jwtHeader, jwtToken);
-        setAuthenticateInfo(messageContext, username);
-        setAPIParametersToMessageContext(messageContext);
-        return true;
+        if(jwtToken != null){
+            String jwtHeader = getAPIManagerConfiguration().getFirstProperty(APIConstants.JWT_HEADER);
+            ((TreeMap) axis2MessageContext
+                    .getProperty(org.apache.axis2.context.MessageContext.TRANSPORT_HEADERS))
+                    .put(jwtHeader, jwtToken);
+            setAuthenticateInfo(messageContext, username);
+            setAPIParametersToMessageContext(messageContext);
+            return true;
+        }
+
+        return false;
+
+
     }
 
     private String generateJWTToken(org.apache.axis2.context.MessageContext axis2MessageContext,
